@@ -21,4 +21,21 @@ public class StudentService {
     public List<Student> getAllStudent() {
         return repository.getAllStudent();
     }
+
+    public Student getByStudentId(String id) {
+        return repository.getByStudentId (id);
+    }
+
+
+    public Student getByStudentName(String name) {
+        return repository.getByStudentName(name);
+    }
+
+    public Student updateStudent(Student student) {
+        return repository.CreateStudent (student);
+    }
+
+    public String deleteStudent(Student student) {
+        return repository.deleteStudent(student);
+    }
 }

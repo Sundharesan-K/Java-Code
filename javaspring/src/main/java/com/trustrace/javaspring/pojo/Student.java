@@ -9,6 +9,7 @@ import java.util.ArrayList;
 public class Student {
     @Id
     private String id;
+
     private String name;
     private int age;
     private String department;
@@ -71,4 +72,5 @@ public class Student {
     public void setHobbies(String hobbies) {
         this.hobbies = hobbies;
     }
+
 }
