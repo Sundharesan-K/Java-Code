@@ -1,14 +1,15 @@
 package com.trustrace.Switchenergysystembackend.security;
 
-import com.trustrace.Switchenergysystembackend.entity.User;
+import com.trustrace.Switchenergysystembackend.entity.UserLogin;
 import com.trustrace.Switchenergysystembackend.repository.UserRepository;
 import io.jsonwebtoken.*;
+import io.jsonwebtoken.io.Decoders;
+import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import java.io.Serializable;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.security.Key;
+import java.util.*;
 import java.util.function.Function;
 
 @Component
@@ -49,22 +50,27 @@ public class JwtUtility implements Serializable {
     }
 
     //generate token for user
-    public String generateToken(String emailId,long jwtTokenValidity) {
+    public String generateToken(String name,long jwtTokenValidity) {
         Map<String, Object> claims = new HashMap<> ();
-        return doGenerateToken(claims, emailId,jwtTokenValidity);
+        return doGenerateToken(claims, name,jwtTokenValidity);
     }
     private String doGenerateToken(Map<String, Object> claims, String subject, long jwtTokenValidity) {
 
-        return Jwts.builder().setClaims(claims).claim ("role",userRepository.findByEmailId(subject).getRole())
+        return Jwts.builder().setClaims(claims).claim ("role",userRepository.findByName(subject).get ())
                 .setSubject (subject).setIssuedAt (new Date (System.currentTimeMillis ()))
                 .setExpiration (new Date (System.currentTimeMillis ()+jwtTokenValidity*1000))
-                .signWith (SignatureAlgorithm.HS512,secret).compact ();
+                .signWith (getSignKey(),SignatureAlgorithm.HS512).compact ();
+    }
+
+    private Key getSignKey(){
+        byte[] keyBytes= Decoders.BASE64.decode (secret);
+        return Keys.hmacShaKeyFor (keyBytes);
     }
 
     public String validateToken(String token){
         try {
             final Claims claims=getAllClaimsFromToken (token);
-            User user=userRepository.findByEmailId(claims.getSubject ());
+            Optional<UserLogin> user=userRepository.findByName(claims.getSubject ());
             if (claims.get ("role").equals ("user")&&user!=null&&!isTokenExpired (token)){
                 return "user";
             }

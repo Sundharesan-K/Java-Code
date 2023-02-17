@@ -23,7 +23,5 @@ public class Provider {
     private String name;
     @Field("amount_per_kwh")
     private Double amountPerKwh;
-
     private String status;
-
 }

@@ -19,7 +19,7 @@ public class SmartMeterServiceImpl implements SmartMeterService {
     private ProviderRepository providerRepository;
     @Override
     public SmartMeter createSmartMeter(SmartMeter smartMeter) {
-        SmartMeter smartMeter1=smartMeterRepository.findMeterIdAndStatus(smartMeter.getMeterId (),"enabled");
+        SmartMeter smartMeter1=smartMeterRepository.findByMeterIdAndStatus(smartMeter.getMeterId (),"enabled");
         if (smartMeter1!=null){
             throw new RuntimeException ("Smart meter Already exists");
         }
@@ -35,7 +35,7 @@ public class SmartMeterServiceImpl implements SmartMeterService {
 
     @Override
     public List<SmartMeter> getUserSmartMeters(String userId, String status) {
-        return smartMeterRepository.findEmailIdAndStatus(userId,status);
+        return smartMeterRepository.findByEmailIdAndStatus(userId,status);
     }
 
     @Override
@@ -50,7 +50,7 @@ public class SmartMeterServiceImpl implements SmartMeterService {
 
     @Override
     public SmartMeter insertReading(String meterId, double reading) {
-        SmartMeter smartMeter=smartMeterRepository.findMeterIdAndStatus (meterId,"enabled");
+        SmartMeter smartMeter=smartMeterRepository.findByMeterIdAndStatus (meterId,"enabled");
         if (smartMeter==null){
             throw new RuntimeException ("Not Found");
         }
@@ -64,10 +64,10 @@ public class SmartMeterServiceImpl implements SmartMeterService {
     @Override
     public SmartMeter changeStatus(String id, String status) {
         SmartMeter smartMeter = null;
-        smartMeter = smartMeterRepository.findMeterIdAndStatus(id, "enabled");
+        smartMeter = smartMeterRepository.findByMeterIdAndStatus(id, "enabled");
 
         if (smartMeter == null) {
-            smartMeter = smartMeterRepository.findMeterIdAndStatus(id, "pending_approval");
+            smartMeter = smartMeterRepository.findByMeterIdAndStatus(id, "pending_approval");
             if (smartMeter == null) {
                 throw new RuntimeException("Smart meter not found");
             }
@@ -81,7 +81,7 @@ public class SmartMeterServiceImpl implements SmartMeterService {
     @Override
     public Double calculate(String meterId) throws Exception {
         try{
-            SmartMeter smartMeter=smartMeterRepository.findMeterIdAndStatus (meterId,"enabled");
+            SmartMeter smartMeter=smartMeterRepository.findByMeterIdAndStatus (meterId,"enabled");
             List<Reading> readings=smartMeter.getReadings ();
             int previousTime=0;
             double totalReading=0.0;

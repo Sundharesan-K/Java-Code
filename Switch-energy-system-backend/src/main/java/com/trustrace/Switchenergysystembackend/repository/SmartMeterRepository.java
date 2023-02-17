@@ -9,10 +9,10 @@ import java.util.List;
 @Repository
 public interface SmartMeterRepository extends MongoRepository<SmartMeter,String > {
 
-    SmartMeter findMeterIdAndStatus(String meterId, String status);
+    SmartMeter findByMeterIdAndStatus(String meterId, String status);
 
     List<SmartMeter> findByStatus(String status);
 
-    List<SmartMeter> findEmailIdAndStatus(String emailId, String status);
+    List<SmartMeter> findByEmailIdAndStatus(String emailId, String status);
 
 }

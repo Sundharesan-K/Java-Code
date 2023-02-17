@@ -5,16 +5,27 @@ import com.trustrace.Switchenergysystembackend.entity.UserLogin;
 import com.trustrace.Switchenergysystembackend.repository.UserRepository;
 import com.trustrace.Switchenergysystembackend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @Override
+    public String addUser(UserLogin userLogin) {
+        userLogin.setPassword (passwordEncoder.encode (userLogin.getPassword ()));
+        return "SuccessFul added";
+    }
+
     @Override
     public User createUser(User user) {
-        if (userRepository.findByEmailId (user.getEmailId ())!=null){
+        if (userRepository.findByName (user.getName ())!=null){
             throw new RuntimeException ("Email Id already exists");
         }
         user.setStatus ("Active");
@@ -22,11 +33,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User login(UserLogin userLogin) {
-        User user=userRepository.findByEmailId (userLogin.getEmailId ());
+    public Optional<UserLogin> login(UserLogin userLogin) {
+        Optional<UserLogin> user=userRepository.findByName (userLogin.getName ());
         if (user==null){
             throw new RuntimeException ("Invalid Id");
-        }else if (!userLogin.getPassword ().equals (user.getPassword())){
+        }else if (!userLogin.getPassword ().equals (user. get ())){
             throw new RuntimeException ("Wrong Password");
         }
         return user;

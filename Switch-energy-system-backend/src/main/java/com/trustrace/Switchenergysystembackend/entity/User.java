@@ -10,7 +10,6 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -28,10 +27,7 @@ public class User {
     @NotEmpty(message = "Enter valid password")
     @Size(min = 5,message ="min 5 characters")
     private String password;
-    @NotEmpty(message = "Enter role of the user")
+    @NotEmpty(message = "Enter Your Role")
     private String role;
     private String status;
-
-
-
 }

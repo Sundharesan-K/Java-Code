@@ -1,5 +1,4 @@
 package com.trustrace.Switchenergysystembackend.entity;
-
 import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
@@ -9,7 +8,6 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
-
 import java.util.List;
 @Data
 @NoArgsConstructor
@@ -31,5 +29,4 @@ public class SmartMeter {
     private String providerId;
     private String status;
     private List<Reading> readings;
-
 }
