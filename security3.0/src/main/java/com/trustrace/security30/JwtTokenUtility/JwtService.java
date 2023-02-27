@@ -1,10 +1,11 @@
 package com.trustrace.security30.JwtTokenUtility;
 
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import com.trustrace.security30.pojo.User;
+import com.trustrace.security30.repository.UserRepository;
+import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
@@ -17,6 +18,8 @@ import java.util.function.Function;
 
 @Component
 public class JwtService {
+    @Autowired
+    private UserRepository repository;
     private final static String SECRET="6250655368566D5971337436773979244226452948404D635166546A576E5A72";
 
     public String extractUsername(String token){
@@ -30,12 +33,16 @@ public class JwtService {
         return claimResolver.apply (claims);
     }
     private Claims extractAllClaims(String token){
-        return Jwts
-                .parserBuilder ()
-                .setSigningKey (getSignKey ())
-                .build ()
-                .parseClaimsJws (token)
-                .getBody ();
+        try {
+            return Jwts
+                    .parserBuilder ()
+                    .setSigningKey (getSignKey ())
+                    .build ()
+                    .parseClaimsJws (token)
+                    .getBody ();
+        }catch (ExpiredJwtException e){
+            throw new RuntimeException ("JWT token expired");
+        }
     }
     private Boolean isTokenExpired(String token){
         return extractExpiration (token).before (new Date ());
@@ -64,5 +71,23 @@ public class JwtService {
     private Key getSignKey() {
         byte[] keyBytes= Decoders.BASE64.decode (SECRET);
         return Keys.hmacShaKeyFor (keyBytes);
+    }
+    public String ValidateTokens(String token){
+        try{
+            final Claims claims=extractAllClaims (token);
+            User user=repository.findByUserName (claims.getSubject ());
+            if (claims.get ("roles").equals ("user") && user != null && !isTokenExpired (token)){
+                return "user";
+            }
+            else if (claims.get ("roles").equals ("admin") && user != null && !isTokenExpired (token)){
+                return "admin";
+            }
+            else {
+                return "";
+            }
+        }
+        catch (IllegalArgumentException | MalformedJwtException e) {
+            return "";
+        }
     }
 }
