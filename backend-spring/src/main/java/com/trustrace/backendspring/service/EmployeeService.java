@@ -11,4 +11,11 @@ public interface EmployeeService {
     void createEmployee(Employee employee);
 
     void createManyEmployee(List<Employee> employees);
+
+    List<Employee> getAllEmployee();
+
+    Employee getEmployeeById(String id);
+
+    List<Employee> getEmployeeByName(String name);
+
 }

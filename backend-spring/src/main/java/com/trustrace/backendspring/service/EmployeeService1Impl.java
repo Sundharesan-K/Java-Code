@@ -16,4 +16,20 @@ public class EmployeeService1Impl implements EmployeeService{
     public void createManyEmployee(List<Employee> employees) {
 
     }
+
+    @Override
+    public List<Employee> getAllEmployee() {
+        return null;
+    }
+
+    @Override
+    public Employee getEmployeeById(String id) {
+        return null;
+    }
+
+    @Override
+    public List<Employee> getEmployeeByName(String name) {
+        return null;
+    }
+
 }
