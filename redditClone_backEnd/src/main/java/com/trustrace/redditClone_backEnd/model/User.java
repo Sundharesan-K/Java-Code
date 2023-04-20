@@ -14,7 +14,7 @@ import java.time.Instant;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Document(collation = "UserList")
+@Document(collection = "User")
 public class User {
     @Id
     private String userId;

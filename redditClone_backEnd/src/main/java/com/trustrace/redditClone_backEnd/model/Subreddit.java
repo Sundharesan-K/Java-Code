@@ -18,7 +18,7 @@ import java.util.List;
 @Document(collection = "subredditList")
 public class Subreddit {
     @Id
-    private Long id;
+    private String id;
     @NotBlank(message = "name is Required")
     private String name;
     @NotBlank(message = "description is Required")

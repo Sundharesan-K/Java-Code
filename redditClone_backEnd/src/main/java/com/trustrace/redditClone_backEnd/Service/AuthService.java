@@ -1,5 +1,6 @@
 package com.trustrace.redditClone_backEnd.Service;
 
+import com.trustrace.redditClone_backEnd.dto.AuthenticationResponse;
 import com.trustrace.redditClone_backEnd.dto.LoginRequest;
 import com.trustrace.redditClone_backEnd.dto.RegisterRequest;
 import com.trustrace.redditClone_backEnd.exceptions.SpringRedditException;
@@ -8,10 +9,16 @@ import com.trustrace.redditClone_backEnd.model.User;
 import com.trustrace.redditClone_backEnd.model.VerificationToken;
 import com.trustrace.redditClone_backEnd.repository.UserRepository;
 import com.trustrace.redditClone_backEnd.repository.VerificationTokenRepository;
+import com.trustrace.redditClone_backEnd.security.JwtProvider;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,6 +34,7 @@ public class AuthService {
     private final VerificationTokenRepository verificationTokenRepository;
     private final PasswordEncoder passwordEncoder;
     private final MailService mailService;
+    private final JwtProvider jwtProvider;
     @Transactional
     public void signUp(RegisterRequest registerRequest){
         User user = new User();
@@ -51,6 +59,13 @@ public class AuthService {
         verificationTokenRepository.save(verificationToken);
         return token;
     }
+    @Transactional(readOnly = true)
+    public User getCurrentUser() {
+        Jwt principal = (Jwt) SecurityContextHolder.
+                getContext().getAuthentication().getPrincipal();
+        return userRepository.findByUsername(principal.getSubject())
+                .orElseThrow(() -> new UsernameNotFoundException("User name not found - " + principal.getSubject()));
+    }
 
     public void verifyAccount(String token) {
     Optional<VerificationToken> verificationToken = verificationTokenRepository.findByToken(token);
@@ -65,8 +80,15 @@ public class AuthService {
        userRepository.save (user);
     }
 
-    public void login(LoginRequest loginRequest) {
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername()
+    public AuthenticationResponse login(LoginRequest loginRequest) {
+      Authentication authenticate = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername()
         ,loginRequest.getPassword()));
+        SecurityContextHolder.getContext().setAuthentication(authenticate);
+        String token = jwtProvider.generateToken(authenticate);
+        return new AuthenticationResponse(token,loginRequest.getUsername());
+    }
+    public boolean isLoggedIn() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return !(authentication instanceof AnonymousAuthenticationToken) && authentication.isAuthenticated();
     }
 }

@@ -1,6 +1,7 @@
 package com.trustrace.redditClone_backEnd.controller;
 
 import com.trustrace.redditClone_backEnd.Service.AuthService;
+import com.trustrace.redditClone_backEnd.dto.AuthenticationResponse;
 import com.trustrace.redditClone_backEnd.dto.LoginRequest;
 import com.trustrace.redditClone_backEnd.dto.RegisterRequest;
 import lombok.RequiredArgsConstructor;
@@ -26,7 +27,7 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public void login(@RequestBody LoginRequest loginRequest){
-        authService.login(loginRequest);
+    public AuthenticationResponse login(@RequestBody LoginRequest loginRequest){
+       return authService.login(loginRequest);
     }
 }
