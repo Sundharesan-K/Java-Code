@@ -51,13 +51,15 @@ public class SecurityConfig  {
                 .authorizeHttpRequests (authorize -> authorize
                         .requestMatchers (HttpMethod.GET ,"/api/auth/**")
                         .permitAll ()
-                        .requestMatchers (HttpMethod.POST ,"/api/auth/**")
+                        .requestMatchers (HttpMethod.POST ,"/api/auth/**","/api/vote")
                         .permitAll ()
                         .requestMatchers(HttpMethod.GET,"/api/subreddit/**")
                         .permitAll()
                         .requestMatchers(HttpMethod.POST,"/api/subreddit/create")
                         .permitAll()
-                        .requestMatchers(HttpMethod.POST,"/api/post/**")
+                        .requestMatchers(HttpMethod.POST,"/api/post/**","/api/comment/**")
+                        .permitAll()
+                        .requestMatchers(HttpMethod.GET,"/api/post/**","/api/comment/**")
                         .permitAll()
 //                        .requestMatchers ("/v2/api-docs",
 //                                "/configuration/ui",

@@ -11,7 +11,7 @@ import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface SubredditMapper {
-    @Mapping(target = "numberOfPost",expression = "java(mapPosts(subreddit.getPosts()))")
+//    @Mapping(target = "numberOfPost",expression = "java(mapPosts(subreddit.getPosts()))")
     SubredditDto mapSubredditToDto(Subreddit subreddit);
 
     default Integer mapPosts(List<Post> numberOfPost) {

@@ -1,18 +1,14 @@
 package com.trustrace.redditClone_backEnd.dto;
 
+import com.trustrace.redditClone_backEnd.model.VoteType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.Id;
-
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class PostRequest {
+public class VoteDto {
+    private VoteType voteType;
     private String postId;
-    private String subredditName;
-    private String postName;
-    private String url;
-    private String description;
 }

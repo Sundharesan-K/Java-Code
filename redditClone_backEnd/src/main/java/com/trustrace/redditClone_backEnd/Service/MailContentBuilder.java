@@ -8,7 +8,7 @@ import org.thymeleaf.context.Context;
 
 @Service
 @RequiredArgsConstructor
-public class MainContentBuilder {
+public class MailContentBuilder {
 
     private final TemplateEngine templateEngine;
 

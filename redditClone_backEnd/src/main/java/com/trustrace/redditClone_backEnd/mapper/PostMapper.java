@@ -27,11 +27,9 @@ public abstract class PostMapper {
     @Mapping(target = "subreddit", source = "subreddit")
     @Mapping(target = "voteCount", constant = "0")
     @Mapping(target = "user", source = "user")
-    public Post map(PostRequest postRequest, Subreddit subreddit, User user) {
-        return map(postRequest,subreddit,user);
-    }
+    public abstract Post map(PostRequest postRequest, Subreddit subreddit, User user);
 
-    @Mapping(target = "id", source = "postId")
+    @Mapping(target = "id", source = "id")
     @Mapping(target = "subredditName", source = "subreddit.name")
     @Mapping(target = "userName", source = "user.username")
     @Mapping(target = "commentCount", expression = "java(commentCount(post))")
