@@ -12,7 +12,6 @@ import java.time.Instant;
 @NoArgsConstructor
 @Builder
 public class CommentDto {
-    private String id;
     private String postId;
     private Instant createDate;
     private String text;

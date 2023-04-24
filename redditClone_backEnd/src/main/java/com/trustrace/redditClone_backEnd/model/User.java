@@ -15,7 +15,7 @@ import java.time.Instant;
 @AllArgsConstructor
 @NoArgsConstructor
 @Document(collection = "User")
-public class User {
+    public class User {
     @Id
     private String userId;
     @NotBlank(message = "Username is Required")

@@ -9,7 +9,7 @@ import org.springframework.data.annotation.Id;
 @Data
 @NoArgsConstructor
 public class PostResponse {
-    private String id;
+    private String postId;
     private String postName;
     private String url;
     private String description;

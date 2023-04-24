@@ -7,5 +7,5 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import java.util.Optional;
 
 public interface SubredditRepository extends MongoRepository<Subreddit,String> {
-    Optional<Subreddit> findByName(String subredditName);
+    Optional<Subreddit> findFirstByName(String subredditName);
 }

@@ -35,7 +35,8 @@ public class AuthService {
     private final PasswordEncoder passwordEncoder;
     private final MailService mailService;
     private final JwtProvider jwtProvider;
-    @Transactional
+
+//    @Transactional
     public void signUp(RegisterRequest registerRequest){
         User user = new User();
         user.setUsername(registerRequest.getUsername());

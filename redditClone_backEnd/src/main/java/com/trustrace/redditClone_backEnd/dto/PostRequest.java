@@ -10,6 +10,7 @@ import org.springframework.data.annotation.Id;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PostRequest {
+
     private String postId;
     private String subredditName;
     private String postName;

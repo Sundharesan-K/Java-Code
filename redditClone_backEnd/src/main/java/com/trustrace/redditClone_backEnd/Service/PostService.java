@@ -26,7 +26,6 @@ import static java.util.stream.Collectors.toList;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-@Transactional
 public class PostService {
     private final PostRepository postRepository;
     private final PostMapper postMapper;
@@ -35,7 +34,7 @@ public class PostService {
     private final UserRepository userRepository;
 
     public void save(PostRequest postRequest) {
-        Subreddit subreddit = subredditRepository.findByName(postRequest.getSubredditName())
+        Subreddit subreddit = subredditRepository.findFirstByName(postRequest.getSubredditName())
                 .orElseThrow(()->new SpringRedditException(postRequest.getSubredditName()));
         postRepository.save(postMapper.map(postRequest,subreddit,authService.getCurrentUser()));
     }
@@ -43,7 +42,7 @@ public class PostService {
     @Transactional(readOnly = true)
     public PostResponse getPost(String id) {
         Post post = postRepository.findById(id)
-                .orElseThrow(()->new PostNotFoundException(id));
+                .orElseThrow(()->new PostNotFoundException(id.toString()));
         return postMapper.mapToDto(post);
     }
     @Transactional(readOnly = true)
@@ -56,7 +55,7 @@ public class PostService {
     @Transactional(readOnly = true)
     public List<PostResponse> getPostsBySubreddit(String subredditId) {
         Subreddit subreddit = subredditRepository.findById(subredditId)
-                .orElseThrow(() -> new SubredditNotFoundException(subredditId));
+                .orElseThrow(() -> new SubredditNotFoundException(subredditId.toString()));
         List<Post> posts = postRepository.findAllBySubreddit(subreddit);
         return posts.stream().map(postMapper::mapToDto).collect(toList());
     }

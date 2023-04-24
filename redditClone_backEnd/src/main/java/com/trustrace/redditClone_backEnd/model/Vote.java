@@ -14,7 +14,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "VoteList")
 public class Vote {
     @Id
-    private String voteId;
+    private Long voteId;
     private VoteType voteType;
     private Post post;
     private User user;

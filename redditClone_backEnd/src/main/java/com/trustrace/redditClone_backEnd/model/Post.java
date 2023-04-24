@@ -18,8 +18,7 @@ import java.time.Instant;
 @Document(collection = "postList")
 public class Post {
     @Id
-    private String id;
-    private Long postId;
+    private String postId;
     @NotBlank(message = "PostName cannot be Empty or Null")
     private String postName;
     @Nullable
