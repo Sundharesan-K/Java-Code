@@ -13,7 +13,7 @@ import java.time.Instant;
 @Document(collection = "CommentList")
 public class Comment {
     @Id
-    private Long id;
+    private String id;
     @NotEmpty
     private String text;
     private Post post;

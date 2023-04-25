@@ -34,7 +34,7 @@ public class PostService {
     private final UserRepository userRepository;
 
     public void save(PostRequest postRequest) {
-        Subreddit subreddit = subredditRepository.findFirstByName(postRequest.getSubredditName())
+        Subreddit subreddit = subredditRepository.findByName(postRequest.getSubredditName())
                 .orElseThrow(()->new SpringRedditException(postRequest.getSubredditName()));
         postRepository.save(postMapper.map(postRequest,subreddit,authService.getCurrentUser()));
     }
