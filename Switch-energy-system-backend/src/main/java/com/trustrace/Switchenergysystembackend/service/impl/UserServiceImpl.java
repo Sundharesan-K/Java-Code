@@ -17,11 +17,11 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    @Override
-    public String addUser(UserLogin userLogin) {
-        userLogin.setPassword (passwordEncoder.encode (userLogin.getPassword ()));
-        return "SuccessFul added";
-    }
+//    @Override
+//    public String addUser(UserLogin userLogin) {
+//        userLogin.setPassword (passwordEncoder.encode (userLogin.getPassword ()));
+//        return "SuccessFul added";
+//    }
 
     @Override
     public User createUser(User user) {

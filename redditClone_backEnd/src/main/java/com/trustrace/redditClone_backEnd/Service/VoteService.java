@@ -23,7 +23,7 @@ public class VoteService {
     private final PostRepository postRepository;
     private final VoteRepository voteRepository;
     private final AuthService authService;
-    @Transactional
+
     public void vote(VoteDto voteDto) {
         Post post = postRepository.findById(voteDto.getPostId())
                 .orElseThrow(()->new PostNotFoundException("Post Not Found with ID -" +voteDto.getPostId()));
@@ -31,7 +31,7 @@ public class VoteService {
         if (voteByPostAndUser.isPresent() &&
                 voteByPostAndUser.get().getVoteType()
                         .equals(voteDto.getVoteType())){
-            throw new SpringRedditException("You Already "+voteDto.getPostId()+"id for this post");
+            throw new SpringRedditException("You Already "+voteDto.getPostId()+" id for this post");
         }
         if (UPVOTE.equals(voteDto.getVoteType())){
             post.setVoteCount(post.getVoteCount() + 1);

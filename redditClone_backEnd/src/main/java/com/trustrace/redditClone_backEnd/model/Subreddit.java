@@ -1,6 +1,5 @@
 package com.trustrace.redditClone_backEnd.model;
 
-import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -16,9 +15,7 @@ import java.util.List;
 public class Subreddit {
     @Id
     private String id;
-    @NotBlank(message = "name is Required")
     private String name;
-    @NotBlank(message = "description is Required")
     private String description;
     private List<Post> posts;
     private Instant createDate;

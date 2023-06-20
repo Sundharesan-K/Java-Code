@@ -1,6 +1,5 @@
 package com.trustrace.Switchenergysystembackend.repository;
 
-import com.trustrace.Switchenergysystembackend.configsec.UserUserDetailsService;
 import com.trustrace.Switchenergysystembackend.entity.User;
 import com.trustrace.Switchenergysystembackend.entity.UserLogin;
 import org.springframework.data.mongodb.repository.MongoRepository;

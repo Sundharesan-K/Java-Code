@@ -14,7 +14,6 @@ import java.time.Instant;
 public class Comment {
     @Id
     private String id;
-    @NotEmpty
     private String text;
     private Post post;
     private Instant createDate;

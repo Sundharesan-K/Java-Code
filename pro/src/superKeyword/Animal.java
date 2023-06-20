@@ -1,2 +1,7 @@
-package superKeyword;public class Animal {
+package superKeyword;
+
+public class Animal {
+    void eat(){
+        System.out.println ("eating");
+    }
 }

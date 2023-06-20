@@ -3,18 +3,23 @@ package com.trustrace.security30.service;
 import com.trustrace.security30.pojo.Login;
 import com.trustrace.security30.pojo.User;
 import com.trustrace.security30.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Random;
 
 @Service
+//@RequiredArgsConstructor
 public class UserService {
-    @Autowired
-    private UserRepository userRepository;
-    @Autowired
+    public UserService(UserRepository userRepository,PasswordEncoder passwordEncoder){
+        this.userRepository=userRepository;
+        this.passwordEncoder=passwordEncoder;
+    }
+//    @Autowired
+    private  UserRepository userRepository;
+//    @Autowired
     private PasswordEncoder passwordEncoder;
 
     public String createUser(User user) {
@@ -23,6 +28,8 @@ public class UserService {
             throw new RuntimeException ("username already exists");
         }
          userRepository.save(user);
+        User user1=new User("1","sundhar","sund",null,"user");
+        user1.setId (user.getId ());
         return "Active";
     }
 

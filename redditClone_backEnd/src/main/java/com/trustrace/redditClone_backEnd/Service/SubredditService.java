@@ -4,16 +4,13 @@ import com.trustrace.redditClone_backEnd.dto.SubredditDto;
 import com.trustrace.redditClone_backEnd.exceptions.SpringRedditException;
 import com.trustrace.redditClone_backEnd.mapper.SubredditMapper;
 import com.trustrace.redditClone_backEnd.model.Subreddit;
+import com.trustrace.redditClone_backEnd.model.User;
 import com.trustrace.redditClone_backEnd.repository.SubredditRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-
-
-import static java.util.stream.Collectors.toList;
 
 @Service
 @RequiredArgsConstructor
@@ -30,10 +27,11 @@ public class SubredditService {
     }
 
     public List<SubredditDto> getAll() {
-        return subredditRepository.findAll()
+        List<Subreddit> findAll = subredditRepository.findAll();
+         return findAll
                 .stream()
                 .map(subredditMapper::mapSubredditToDto)
-                .collect(toList());
+                .toList();
     }
 
     public SubredditDto getSubreddit(String id) {

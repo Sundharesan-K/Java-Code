@@ -33,8 +33,8 @@ public class CommentService {
 
     public void save(CommentDto commentDto){
      Post post = postRepository.findById((commentDto.getPostId()))
-                .orElseThrow(()->new PostNotFoundException(commentDto.getPostId().toString()));
-    Comment comment = commentMapper.map(commentDto,post,authService.getCurrentUser());
+                .orElseThrow(()->new PostNotFoundException(commentDto.getPostId()));
+    Comment comment = commentMapper.map(commentDto,post);
     commentRepository.save(comment);
 
     String message = mailContentBuilder.builder(post.getUser().getUsername() + "post a comment on your post."+ POST_URL);
@@ -47,7 +47,7 @@ public class CommentService {
 
     public List<CommentDto> getAllCommentsForPost(String postId) {
       Post post = postRepository.findById(postId)
-              .orElseThrow(()->new PostNotFoundException(postId.toString()));
+              .orElseThrow(()->new PostNotFoundException(postId));
         return commentRepository.findByPost(post)
                 .stream()
                 .map(commentMapper::mapToDto)

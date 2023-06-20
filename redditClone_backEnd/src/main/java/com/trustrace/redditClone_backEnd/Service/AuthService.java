@@ -20,7 +20,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+
 
 import java.time.Instant;
 import java.util.Optional;
@@ -36,7 +36,6 @@ public class AuthService {
     private final MailService mailService;
     private final JwtProvider jwtProvider;
 
-//    @Transactional
     public void signUp(RegisterRequest registerRequest){
         User user = new User();
         user.setUsername(registerRequest.getUsername());
@@ -60,7 +59,7 @@ public class AuthService {
         verificationTokenRepository.save(verificationToken);
         return token;
     }
-    @Transactional(readOnly = true)
+
     public User getCurrentUser() {
         Jwt principal = (Jwt) SecurityContextHolder.
                 getContext().getAuthentication().getPrincipal();
@@ -73,7 +72,7 @@ public class AuthService {
     verificationToken.orElseThrow (()-> new SpringRedditException ("InvalidToken"));
     fetchUserAndEnable(verificationToken.get ());
     }
-    @Transactional
+
     public void fetchUserAndEnable(VerificationToken verificationToken) {
         String username = verificationToken.getUser ().getUsername ();
        User user =  userRepository.findByUsername(username).orElseThrow (()->new SpringRedditException ("User Not Found with name - "+username));
@@ -86,7 +85,7 @@ public class AuthService {
         ,loginRequest.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authenticate);
         String token = jwtProvider.generateToken(authenticate);
-        return new AuthenticationResponse(token,loginRequest.getUsername());
+        return new AuthenticationResponse(token, loginRequest.getUsername());
     }
     public boolean isLoggedIn() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

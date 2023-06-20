@@ -1,6 +1,5 @@
 package com.trustrace.redditClone_backEnd.mapper;
 
-import com.github.marlonlom.utilities.timeago.TimeAgo;
 import com.trustrace.redditClone_backEnd.Service.AuthService;
 import com.trustrace.redditClone_backEnd.dto.PostRequest;
 import com.trustrace.redditClone_backEnd.dto.PostResponse;
@@ -32,7 +31,6 @@ public abstract class PostMapper {
     @Mapping(target = "subredditName", source = "subreddit.name")
     @Mapping(target = "userName", source = "user.username")
     @Mapping(target = "commentCount", expression = "java(commentCount(post))")
-    @Mapping(target = "duration", expression = "java(getDuration(post))")
     @Mapping(target = "upVote", expression = "java(isPostUpVoted(post))")
     @Mapping(target = "downVote", expression = "java(isPostDownVoted(post))")
     public abstract PostResponse mapToDto(Post post);
@@ -40,11 +38,7 @@ public abstract class PostMapper {
     Integer commentCount(Post post) {
         return commentRepository.findByPost(post).size();
     }
-
-    String getDuration(Post post) {
-        return TimeAgo.using(post.getCreateDate().toEpochMilli());
-    }
-
+    
     boolean isPostUpVoted(Post post) {
         return checkVoteType(post, VoteType.UPVOTE);
     }

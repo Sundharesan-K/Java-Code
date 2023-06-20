@@ -39,33 +39,29 @@ public class PostService {
         postRepository.save(postMapper.map(postRequest,subreddit,authService.getCurrentUser()));
     }
 
-    @Transactional(readOnly = true)
     public PostResponse getPost(String id) {
         Post post = postRepository.findById(id)
-                .orElseThrow(()->new PostNotFoundException(id.toString()));
+                .orElseThrow(()->new PostNotFoundException(id));
         return postMapper.mapToDto(post);
     }
-    @Transactional(readOnly = true)
     public List<PostResponse> getAllPosts() {
         return postRepository.findAll()
                 .stream()
                 .map(postMapper::mapToDto)
                 .collect(toList());
     }
-    @Transactional(readOnly = true)
     public List<PostResponse> getPostsBySubreddit(String subredditId) {
         Subreddit subreddit = subredditRepository.findById(subredditId)
-                .orElseThrow(() -> new SubredditNotFoundException(subredditId.toString()));
+                .orElseThrow(() -> new SubredditNotFoundException(subredditId));
         List<Post> posts = postRepository.findAllBySubreddit(subreddit);
-        return posts.stream().map(postMapper::mapToDto).collect(toList());
+        return posts.stream().map(postMapper::mapToDto).toList();
     }
-    @Transactional(readOnly = true)
     public List<PostResponse> getPostsByUsername(String username) {
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException(username));
         return postRepository.findByUser(user)
                 .stream()
                 .map(postMapper::mapToDto)
-                .collect(toList());
+                .toList();
     }
 }

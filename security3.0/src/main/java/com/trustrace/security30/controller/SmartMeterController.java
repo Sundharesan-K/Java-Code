@@ -3,7 +3,6 @@ package com.trustrace.security30.controller;
 import com.trustrace.security30.dto.APIResponse;
 import com.trustrace.security30.pojo.SmartMeter;
 import com.trustrace.security30.service.SmartMeterService;
-import jakarta.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,14 +35,15 @@ public class SmartMeterController {
         return new ResponseEntity<> (apiResponse,HttpStatus.OK);
     }
 
-    @GetMapping("/readings")
-    public ResponseEntity<APIResponse> getReadings(@PathParam ("meterId") String meterId){
-        APIResponse apiResponse=new APIResponse ();
-        try {
-            apiResponse.setData (meterService.calculate(meterId));
-        }catch (Exception e){
-            apiResponse.setMessage (e.getMessage ());
-        }
-        return new ResponseEntity<> (apiResponse,HttpStatus.ACCEPTED);
-    }
+
+//    @GetMapping("/readings")
+//    public ResponseEntity<APIResponse> getReadings(@PathParam ("meterId") String meterId){
+//        APIResponse apiResponse=new APIResponse ();
+//        try {
+//            apiResponse.setData (meterService.calculate(meterId));
+//        }catch (Exception e){
+//            apiResponse.setMessage (e.getMessage ());
+//        }
+//        return new ResponseEntity<> (apiResponse,HttpStatus.ACCEPTED);
+//    }
 }

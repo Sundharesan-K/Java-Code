@@ -19,11 +19,9 @@ import java.time.Instant;
 public class Post {
     @Id
     private String postId;
-    @NotBlank(message = "PostName cannot be Empty or Null")
+    @NotBlank
     private String postName;
-    @Nullable
     private String url;
-    @Nullable
     private String description;
     private Integer voteCount = 0;
     private User user;

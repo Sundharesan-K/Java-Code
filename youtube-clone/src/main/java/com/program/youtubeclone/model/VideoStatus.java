@@ -1,2 +1,5 @@
-package com.program.youtubeclone.model;public enum VideoStatus {
+package com.program.youtubeclone.model;
+
+public enum VideoStatus {
+    PRIVATE,PUBLIC,UNLISTED
 }

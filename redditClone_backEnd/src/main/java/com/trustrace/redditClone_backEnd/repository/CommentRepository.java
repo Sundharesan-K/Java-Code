@@ -5,7 +5,6 @@ import com.trustrace.redditClone_backEnd.model.Post;
 import com.trustrace.redditClone_backEnd.model.User;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
-import java.util.Collection;
 import java.util.List;
 
 public interface CommentRepository extends MongoRepository<Comment,String> {

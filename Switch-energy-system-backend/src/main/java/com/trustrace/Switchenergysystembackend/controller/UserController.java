@@ -21,13 +21,13 @@ public class UserController {
     @Autowired
     private JwtUtility jwtUtility;
 
-    @PostMapping("/new")
-    public String addNewUser(@RequestBody UserLogin userLogin) {
-        return userService.addUser (userLogin);
-    }
+//    @PostMapping("/new")
+//    public String addNewUser(@RequestBody UserLogin userLogin) {
+//        return userService.addUser (userLogin);
+//    }
 
-    @PostMapping
-    public ResponseEntity<APIResponse> createUser(@Valid @RequestBody User user) {
+    @PostMapping("/create")
+    public ResponseEntity<APIResponse> createUser( @RequestBody User user) {
         APIResponse response = new APIResponse ();
         response.setStatus ("Success");
         try {

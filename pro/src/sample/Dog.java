@@ -1,4 +1,6 @@
-public class Dog extends Animal{
+package sample;
+
+public class Dog extends Animal {
     String color="black";
     void printColor(){
         System.out.println (color);

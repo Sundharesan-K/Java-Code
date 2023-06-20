@@ -49,25 +49,10 @@ public class SecurityConfig  {
         return httpSecurity.cors ().and ()
                 .csrf ().disable ()
                 .authorizeHttpRequests (authorize -> authorize
-                        .requestMatchers (HttpMethod.GET ,"/api/auth/**")
+                        .requestMatchers (HttpMethod.GET ,"/api/auth/**","/api/subreddit/**","/api/post/**","/api/comment/**")
                         .permitAll ()
-                        .requestMatchers (HttpMethod.POST ,"/api/auth/**","/api/vote")
+                        .requestMatchers (HttpMethod.POST ,"/api/auth/**","/api/vote/**","/api/subreddit/**","/api/post/**","/api/comment/**")
                         .permitAll ()
-                        .requestMatchers(HttpMethod.GET,"/api/subreddit/**")
-                        .permitAll()
-                        .requestMatchers(HttpMethod.POST,"/api/subreddit/create")
-                        .permitAll()
-                        .requestMatchers(HttpMethod.POST,"/api/post/**","/api/comment/**")
-                        .permitAll()
-                        .requestMatchers(HttpMethod.GET,"/api/post/**","/api/comment/**")
-                        .permitAll()
-//                        .requestMatchers ("/v2/api-docs",
-//                                "/configuration/ui",
-//                                "/swagger-resources/**",
-//                                "/configuration/security",
-//                                "/swagger-ui.html",
-//                                "/webjars/**")
-//                        .permitAll ()
                         .anyRequest ()
                         .authenticated ())
                 .oauth2ResourceServer (OAuth2ResourceServerConfigurer::jwt)
@@ -81,24 +66,6 @@ public class SecurityConfig  {
     PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder ();
     }
-//    @Bean
-//    public SecurityFilterChain securityFilterChain(HttpSecurity http)throws Exception{
-//        return http.cors().and()
-//                .csrf().disable()
-//                .authorizeHttpRequests(authorize->authorize
-//                .requestMatchers("/api/auth/**")
-//                .permitAll()
-//                        .requestMatchers(HttpMethod.GET,"/api/subreddit")
-//                        .permitAll()
-//                .anyRequest()
-//                .authenticated())
-//                .oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt)
-//                .sessionManagement(session->session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-//                .exceptionHandling(exceptions->exceptions
-//                        .authenticationEntryPoint(new BearerTokenAuthenticationEntryPoint())
-//                        .accessDeniedHandler(new BearerTokenAccessDeniedHandler())
-//                );
-//    }
     @Bean
     JwtDecoder jwtDecoder() {
         return NimbusJwtDecoder.withPublicKey(this.publicKey).build();

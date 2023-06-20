@@ -7,6 +7,8 @@ import com.project.instagram2.O.service.validators.PostValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class PostService {
     @Autowired
@@ -23,5 +25,9 @@ public class PostService {
     public Post getPostById(String postId) {
         postValidator.isPostExist (postId);
         return postRepository.getPostById (postId);
+    }
+
+    public List<Post> getAllPost(String pageSize, String pageNumber) throws Exception{
+        return postRepository.getAllPost(pageSize,pageNumber);
     }
 }

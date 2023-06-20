@@ -3,7 +3,6 @@ package com.trustrace.redditClone_backEnd.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.Id;
 
 @AllArgsConstructor
 @Data
@@ -17,7 +16,6 @@ public class PostResponse {
     private String subredditName;
     private Integer voteCount;
     private Integer commentCount;
-    private String duration;
     private boolean upVote;
     private boolean downVote;
 }

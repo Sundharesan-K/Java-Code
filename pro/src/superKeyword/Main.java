@@ -1,2 +1,8 @@
-package superKeyword;public class Main {
+package superKeyword;
+
+public class Main {
+    public static void main(String[] args) {
+        Dog d=new Dog ();
+        d.work ();
+    }
 }
