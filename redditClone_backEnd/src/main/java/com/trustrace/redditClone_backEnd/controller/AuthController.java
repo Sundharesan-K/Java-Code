@@ -4,6 +4,7 @@ import com.trustrace.redditClone_backEnd.Service.AuthService;
 import com.trustrace.redditClone_backEnd.dto.AuthenticationResponse;
 import com.trustrace.redditClone_backEnd.dto.LoginRequest;
 import com.trustrace.redditClone_backEnd.dto.RegisterRequest;
+import com.trustrace.redditClone_backEnd.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/auth")
 public class AuthController {
     private final AuthService authService;
+    private final UserRepository userRepository;
     @PostMapping("/signUp")
     public ResponseEntity<String> signup(@RequestBody RegisterRequest registerRequest){
         authService.signUp(registerRequest);

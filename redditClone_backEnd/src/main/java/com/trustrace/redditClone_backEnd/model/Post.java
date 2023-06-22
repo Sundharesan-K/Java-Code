@@ -17,7 +17,6 @@ import java.time.Instant;
 @Builder
 @Document(collection = "postList")
 public class Post {
-    @Id
     private String postId;
     @NotBlank
     private String postName;

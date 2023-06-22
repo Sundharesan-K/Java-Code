@@ -4,7 +4,6 @@ import com.trustrace.redditClone_backEnd.dto.SubredditDto;
 import com.trustrace.redditClone_backEnd.exceptions.SpringRedditException;
 import com.trustrace.redditClone_backEnd.mapper.SubredditMapper;
 import com.trustrace.redditClone_backEnd.model.Subreddit;
-import com.trustrace.redditClone_backEnd.model.User;
 import com.trustrace.redditClone_backEnd.repository.SubredditRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

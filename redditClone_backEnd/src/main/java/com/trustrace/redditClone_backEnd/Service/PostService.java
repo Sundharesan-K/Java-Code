@@ -35,13 +35,13 @@ public class PostService {
 
     public void save(PostRequest postRequest) {
         Subreddit subreddit = subredditRepository.findByName(postRequest.getSubredditName())
-                .orElseThrow(()->new SpringRedditException(postRequest.getSubredditName()));
+                .orElseThrow(()->new SpringRedditException("Please try again, This subreddit Name not for exists here "+postRequest.getSubredditName()));
         postRepository.save(postMapper.map(postRequest,subreddit,authService.getCurrentUser()));
     }
 
     public PostResponse getPost(String id) {
         Post post = postRepository.findById(id)
-                .orElseThrow(()->new PostNotFoundException(id));
+                .orElseThrow(()->new PostNotFoundException("Please try again, This postId not for exists here "+id));
         return postMapper.mapToDto(post);
     }
     public List<PostResponse> getAllPosts() {

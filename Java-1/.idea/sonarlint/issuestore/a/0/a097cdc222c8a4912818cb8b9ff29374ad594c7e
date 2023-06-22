@@ -1,0 +1,11 @@
+
+^
+java:S4973"<Strings and Boxed types should be compared using "equals()".(“Ñ¬şÿÿÿÿ8¼Ó‹Í1
+E
+java:S1481")Remove this unused "test" local variable.(‚ıÓ<8ÏÓ‹Í1
+Z	java:S106"9Replace this use of System.out or System.err by a logger.(¢œ¸¬øÿÿÿÿ8ÓÓ‹Í1
+U	java:S106"9Replace this use of System.out or System.err by a logger.(™²Ç8ÓÓ‹Í1
+K
+java:S1128".Remove this unused import 'java.util.Objects'.(¼¸õ›8ÔÓ‹Í1
+Z
+java:S1128	"8Remove this unused import 'java.util.stream.Collectors'.(Óóº´úÿÿÿÿ8ÔÓ‹Í1
