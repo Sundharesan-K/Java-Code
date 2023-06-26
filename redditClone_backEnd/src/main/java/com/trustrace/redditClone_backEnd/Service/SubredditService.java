@@ -17,7 +17,8 @@ import java.util.List;
 public class SubredditService {
 
     private final SubredditRepository subredditRepository;
-    private final SubredditMapper subredditMapper;
+
+    private SubredditMapper subredditMapper;
 
     public SubredditDto save(SubredditDto subredditDto){
       Subreddit save = subredditRepository.save(subredditMapper.mapDtoToSubreddit(subredditDto));
@@ -35,7 +36,7 @@ public class SubredditService {
 
     public SubredditDto getSubreddit(String id) {
         Subreddit subreddit = subredditRepository.findById(id)
-                .orElseThrow(()->new SpringRedditException("No subreddit found with "+id));
+                .orElseThrow(() -> new SpringRedditException("No subreddit found with " + id));
         return subredditMapper.mapSubredditToDto(subreddit);
     }
 }
