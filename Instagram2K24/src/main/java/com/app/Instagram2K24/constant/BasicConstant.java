@@ -11,5 +11,6 @@ public interface BasicConstant {
     String INCORRECT_EMAILID = "Incorrect is emailId";
     String USER_CREATED_SUCCESSFULLY = "User Created successfully. You may change to status public to private";
     String USER_ALREADY_EXISTS = "User already exists. So login for different emailId";
+    String NOT_FOUND = "User not found";
 
 }

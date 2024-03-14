@@ -1,4 +1,4 @@
-package com.app.Instagram2K24;
+package com.app.Instagram2K24.validation;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

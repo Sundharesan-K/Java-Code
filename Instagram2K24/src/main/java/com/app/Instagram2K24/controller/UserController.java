@@ -3,6 +3,7 @@ package com.app.Instagram2K24.controller;
 import com.app.Instagram2K24.JWT.JwtService;
 import com.app.Instagram2K24.dto.APIResponse;
 import com.app.Instagram2K24.dto.UserDto;
+import com.app.Instagram2K24.service.FollowService;
 import com.app.Instagram2K24.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
     private final UserService userService;
     private final JwtService jwtService;
+    private final FollowService followService;
 
     @PostMapping("/user-login")
     public ResponseEntity<APIResponse> userSignUp(@RequestHeader("authorization") String auth, @RequestBody UserDto userDto) {
@@ -49,4 +51,19 @@ public class UserController {
             return new ResponseEntity<>(response,HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @GetMapping("/follow/{followerName}")
+    public ResponseEntity<APIResponse> followUser(@PathVariable String followerName,
+                                                  @RequestParam String username){
+        APIResponse response = new APIResponse();
+        try {
+            String message = followService.followTheUser(followerName, username);
+            response.setMessage(message);
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        } catch (Exception e) {
+            response.setMessage(e.getMessage());
+            return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+        }
+    }
+
 }

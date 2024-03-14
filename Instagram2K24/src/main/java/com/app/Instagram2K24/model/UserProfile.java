@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 
@@ -22,9 +24,10 @@ public class UserProfile {
     private String emailId;
     private String password;
     private List<Post> posts;
-    private List<Followers> followers;
-    private List<Following> followings;
+    private List<String> followers;
+    private List<String> followings;
     private Integer followersCount = 0;
     private Integer followingCount = 0;
     private Status status;
+    private LocalDateTime create_ts;
 }

@@ -45,7 +45,6 @@ public class AdminServiceImpl implements AdminService {
             admin.setUsername(adminDto.getUsername());
             admin.setPassword(passwordEncoder.encode(adminDto.getPassword()));
             try {
-
                 adminDao.addAdmin(admin);
             } catch (Exception e) {
                 throw new Exception("Internal server error");

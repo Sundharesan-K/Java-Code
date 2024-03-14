@@ -1,6 +1,6 @@
 package com.app.Instagram2K24.service.impl;
 
-import com.app.Instagram2K24.DataUtil;
+import com.app.Instagram2K24.validation.DataUtil;
 import com.app.Instagram2K24.dao.AdminDao;
 import com.app.Instagram2K24.dto.NotificationEmail;
 import com.app.Instagram2K24.model.Admin;

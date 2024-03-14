@@ -1,16 +1,16 @@
 package com.app.Instagram2K24.service.impl;
 
-import com.app.Instagram2K24.DataUtil;
+import com.app.Instagram2K24.model.Post;
+import com.app.Instagram2K24.validation.DataUtil;
 import com.app.Instagram2K24.dao.UserDao;
 import com.app.Instagram2K24.dto.UserDto;
-import com.app.Instagram2K24.model.Followers;
-import com.app.Instagram2K24.model.Following;
 import com.app.Instagram2K24.model.UserProfile;
 import com.app.Instagram2K24.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
@@ -45,16 +45,19 @@ public class UserServiceImpl implements UserService {
     }
 
         private void userCreated (UserDto userDto){
-            List<Followers> list = Collections.EMPTY_LIST;
-            List<Following> list1 = Collections.EMPTY_LIST;
+            List<Post> postList = Collections.EMPTY_LIST;
+            List<String> list = Collections.EMPTY_LIST;
+            List<String> list1 = Collections.EMPTY_LIST;
             UserProfile userProfiler = new UserProfile();
             userProfiler.setUsername(userDto.getUsername());
             userProfiler.setFullName(userDto.getFullName());
             userProfiler.setEmailId(userDto.getEmailId());
             userProfiler.setPassword(encoder.encode(userDto.getPassword()));
+            userProfiler.setPosts(postList);
             userProfiler.setFollowers(list);
             userProfiler.setFollowings(list1);
             userProfiler.setStatus(Public);
+            userProfiler.setCreate_ts(LocalDateTime.now());
             userDao.addUser(userProfiler);
         }
 
@@ -71,7 +74,7 @@ public class UserServiceImpl implements UserService {
                     throw new Exception("Already you have private");
                 }
             } else {
-                throw new Exception("User not found");
+                throw new Exception(NOT_FOUND);
             }
         } catch (Exception e) {
             throw new Exception(e.getMessage());

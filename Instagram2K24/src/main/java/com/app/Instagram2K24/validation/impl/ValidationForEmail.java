@@ -1,6 +1,6 @@
 package com.app.Instagram2K24.validation.impl;
 
-import com.app.Instagram2K24.DataUtil;
+import com.app.Instagram2K24.validation.DataUtil;
 import com.app.Instagram2K24.validation.EmailValidation;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
