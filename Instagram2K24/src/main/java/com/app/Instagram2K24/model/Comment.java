@@ -14,6 +14,8 @@ public class Comment {
     @Id
     private String id;
     private String postId;
-    private String postName;
-    private String message;
+    private String username;
+    private String comment_text;
+    private String create_ts;
+    private String update_ts;
 }

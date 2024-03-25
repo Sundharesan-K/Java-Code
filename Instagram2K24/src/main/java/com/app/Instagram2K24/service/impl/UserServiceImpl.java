@@ -1,5 +1,6 @@
 package com.app.Instagram2K24.service.impl;
 
+import com.app.Instagram2K24.dto.PostDto;
 import com.app.Instagram2K24.model.Post;
 import com.app.Instagram2K24.validation.DataUtil;
 import com.app.Instagram2K24.dao.UserDao;
@@ -26,12 +27,12 @@ public class UserServiceImpl implements UserService {
     private final PasswordEncoder encoder;
 
     @Override
-    public String userLogin(UserDto userDto) throws Exception {
+    public String userCreated(UserDto userDto) throws Exception {
         try {
             if (DataUtil.isValidEmailString(userDto.getEmailId())) {
                 UserProfile user = userDao.findUserFromEmailId(userDto.getEmailId());
                 if (Objects.isNull(user)) {
-                    userCreated(userDto);
+                    userCreate(userDto);
                     return USER_CREATED_SUCCESSFULLY;
                 } else {
                     throw new Exception(USER_ALREADY_EXISTS);
@@ -44,8 +45,8 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-        private void userCreated (UserDto userDto){
-            List<Post> postList = Collections.EMPTY_LIST;
+        private void userCreate (UserDto userDto){
+            List<PostDto> postList = Collections.EMPTY_LIST;
             List<String> list = Collections.EMPTY_LIST;
             List<String> list1 = Collections.EMPTY_LIST;
             UserProfile userProfiler = new UserProfile();

@@ -1,6 +1,7 @@
 package com.app.Instagram2K24.JWT;
 
 import com.app.Instagram2K24.dao.AdminDao;
+import com.app.Instagram2K24.dao.UserDao;
 import com.app.Instagram2K24.dto.UserDto;
 import com.app.Instagram2K24.model.Admin;
 import io.jsonwebtoken.Claims;
@@ -22,6 +23,8 @@ import java.util.function.Function;
 public class JwtService implements Serializable {
     @Autowired
     public AdminDao adminDao;
+    @Autowired
+    public UserDao userDao;
     private static final long serialVersionUID = -2550185165626007488L;
     private static final SecretKey SECRET_KEY = Keys.secretKeyFor(SignatureAlgorithm.HS512);
 
@@ -70,6 +73,11 @@ public class JwtService implements Serializable {
     public Boolean validateAdminToken(String token) {
         final String username = getUsernameFromToken(token);
         return (!isTokenExpired(token) && adminDao.findAdmin(username) != null);
+    }
+
+    public Boolean validateUserToken(String token) {
+        final String username = getUsernameFromToken(token);
+        return (!isTokenExpired(token) && userDao.findUserFromEmailId(username) != null);
     }
 
     public Boolean validateAdminTokenFromUserDetails(String token, UserDetails userDetails) {

@@ -1,5 +1,7 @@
 package com.app.Instagram2K24.model;
 
+import com.app.Instagram2K24.dto.CommentDto;
+import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,8 +20,9 @@ public class Post {
     private String userId;
     private String postName;
     private List<String> likesUsername;
-    private Integer likeCounts;
-    private List<Comment> comments;
-    private Integer commentCounts;
-
+    private Integer likeCounts = 0;
+    private List<CommentDto> comments;
+    private Integer commentCounts = 0;
+    private LocalDateTime create_ts;
+    private LocalDateTime update_ts;
 }

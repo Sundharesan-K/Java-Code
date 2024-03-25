@@ -39,8 +39,8 @@ public class AdminController {
             String message = adminService.adminLogin(admin);
             response.setMessage(message);
             HttpHeaders httpHeaders = new HttpHeaders();
-            response.setData(jwtService.generateAdminFromToken(admin, 10 * 60));
-            httpHeaders.set("jwttoken", jwtService.generateAdminFromToken(admin, 10 * 60));
+            response.setData(jwtService.generateAdminFromToken(admin, 10 * 600));
+            httpHeaders.set("jwttoken", jwtService.generateAdminFromToken(admin, 10 * 600));
 //            log.info(httpHeaders.toString());
             return new ResponseEntity<>(response, httpHeaders, HttpStatus.OK);
         } catch (Exception e) {

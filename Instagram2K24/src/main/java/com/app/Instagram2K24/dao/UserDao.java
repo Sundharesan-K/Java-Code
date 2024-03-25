@@ -12,4 +12,6 @@ public interface UserDao {
     UserProfile findUserFromUsername(String username);
 
     void UsersAdd(List<UserProfile> list);
+
+    UserProfile findById(String id);
 }

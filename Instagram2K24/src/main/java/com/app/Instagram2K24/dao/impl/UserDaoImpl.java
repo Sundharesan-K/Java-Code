@@ -38,4 +38,9 @@ public class UserDaoImpl implements UserDao {
     public void UsersAdd(List<UserProfile> list) {
         mongoTemplate.save(list);
     }
+
+    @Override
+    public UserProfile findById(String id) {
+        return mongoTemplate.findById(id, UserProfile.class);
+    }
 }
