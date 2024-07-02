@@ -19,9 +19,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-
-import static java.util.stream.Collectors.toList;
-
 @Service
 @RequiredArgsConstructor
 @Slf4j
@@ -47,7 +44,7 @@ public class PostService {
         return postRepository.findAll()
                 .stream()
                 .map(postMapper::mapToDto)
-                .collect(toList());
+                .toList();
     }
     public List<PostResponse> getPostsBySubreddit(String subredditId) {
         Subreddit subreddit = subredditRepository.findById(subredditId)

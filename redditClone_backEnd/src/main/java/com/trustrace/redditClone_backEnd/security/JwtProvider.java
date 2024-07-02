@@ -1,5 +1,6 @@
 package com.trustrace.redditClone_backEnd.security;
 
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
@@ -15,6 +16,8 @@ import java.time.Instant;
 @RequiredArgsConstructor
 public class JwtProvider {
     private final JwtEncoder jwtEncoder;
+
+    @Getter
     @Value("${jwt.expiration.time}")
     private Long jwtExpirationInMillis;
 
@@ -27,14 +30,11 @@ public class JwtProvider {
         JwtClaimsSet claims = JwtClaimsSet.builder()
                 .issuer("self")
                 .issuedAt(Instant.now())
-                .expiresAt(Instant.now().plusMillis(jwtExpirationInMillis))
+                .expiresAt(Instant.now().plusMillis(getJwtExpirationInMillis()))
                 .subject(username)
                 .claim("scope", "ROLE_USER")
                 .build();
         return this.jwtEncoder.encode(JwtEncoderParameters.from(claims)).getTokenValue();
     }
 
-    public Long getJwtExpirationInMillis(){
-        return jwtExpirationInMillis;
-    }
 }

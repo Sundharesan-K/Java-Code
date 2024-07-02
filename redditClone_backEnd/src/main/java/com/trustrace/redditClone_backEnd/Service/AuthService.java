@@ -24,8 +24,6 @@ import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
-import java.util.Objects;
-import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -42,7 +40,7 @@ public class AuthService {
     public void signUp(RegisterRequest registerRequest) {
         log.info ("SignUp Process");
         if (userRepository.findByEmail (registerRequest.getEmail ()).isPresent ()) {
-            throw new RuntimeException ("Email Already exists");
+            throw new UserException("Email Already exists");
         }
         User user = new User ();
         user.setUsername (registerRequest.getUsername ());
@@ -77,9 +75,9 @@ public class AuthService {
 
     public void verifyAccount(String token) {
         log.info ("VerificationToken Process");
-        Optional<VerificationToken> verificationToken = verificationTokenRepository.findByToken (token);
-        verificationToken.orElseThrow (() -> new SpringRedditException ("InvalidToken"));
-        fetchUserAndEnable (verificationToken.get ());
+        VerificationToken verificationToken = verificationTokenRepository.findByToken (token)
+            .orElseThrow (() -> new SpringRedditException ("InvalidToken"));
+        fetchUserAndEnable (verificationToken);
     }
 
     public void fetchUserAndEnable(VerificationToken verificationToken) {

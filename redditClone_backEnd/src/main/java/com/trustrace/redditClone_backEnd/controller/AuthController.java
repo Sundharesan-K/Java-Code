@@ -33,7 +33,7 @@ public class AuthController {
                 APIResponse.builder ()
                         .timeStamp (LocalDateTime.now ().toString ())
                         .data (Map.of (SIGN_UP,registerRequest))
-                        .message (SUCCESS)
+                        .message (SUCCESS.getMessage())
                         .developerMessage (SIGNUP_PROCESS)
                         .status (HttpStatus.CREATED)
                         .statusCode (HttpStatus.CREATED.value ())

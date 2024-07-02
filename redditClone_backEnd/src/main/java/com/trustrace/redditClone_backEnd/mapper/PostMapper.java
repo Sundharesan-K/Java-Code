@@ -6,20 +6,20 @@ import com.trustrace.redditClone_backEnd.dto.PostResponse;
 import com.trustrace.redditClone_backEnd.model.*;
 import com.trustrace.redditClone_backEnd.repository.CommentRepository;
 import com.trustrace.redditClone_backEnd.repository.VoteRepository;
+import lombok.RequiredArgsConstructor;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.springframework.beans.factory.annotation.Autowired;
-
 import java.util.Optional;
 
 @Mapper(componentModel = "spring")
+@RequiredArgsConstructor
 public abstract class PostMapper {
-    @Autowired
-    private CommentRepository commentRepository;
-    @Autowired
-    private AuthService authService;
-    @Autowired
-    private VoteRepository voteRepository;
+
+    private final CommentRepository commentRepository;
+
+    private final AuthService authService;
+
+    private final VoteRepository voteRepository;
 
     @Mapping(target = "createDate", expression = "java(java.time.Instant.now())")
     @Mapping(target = "description", source = "postRequest.description")

@@ -20,7 +20,7 @@ public interface SubredditMapper {
 
     default Integer mapPosts(List<Post> numberOfPosts) {
         if (Objects.nonNull(numberOfPosts)) {
-            numberOfPosts.size();
+            return numberOfPosts.size();
         }
         return 0;
     }

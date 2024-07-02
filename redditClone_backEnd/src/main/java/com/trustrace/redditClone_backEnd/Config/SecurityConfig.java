@@ -70,7 +70,7 @@ public class SecurityConfig  {
     JwtDecoder jwtDecoder() {
         return NimbusJwtDecoder.withPublicKey(this.publicKey).build();
     }
-//
+
     @Bean
     JwtEncoder jwtEncoder() {
         JWK jwk = new RSAKey.Builder (this.publicKey).privateKey (this.privateKey).build ();

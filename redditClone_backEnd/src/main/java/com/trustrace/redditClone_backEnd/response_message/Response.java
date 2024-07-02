@@ -1,13 +1,22 @@
 package com.trustrace.redditClone_backEnd.response_message;
 
-public interface Response {
-    String SUCCESS = "success";
+import lombok.Getter;
 
-    String SUCCESS_MESSAGE = "success_message";
+@Getter
+public enum Response {
+    SUCCESS("success"),
 
-    String ERROR_CODE = "400";
+    SUCCESS_MESSAGE("success_message"),
 
-    String ERROR_MESSAGE = "failure_message";
+    ERROR_CODE("400"),
 
-    String FAILURE = "failure";
+    ERROR_MESSAGE("failure_message"),
+
+    FAILURE("failure");
+
+    private final String message;
+
+    Response(String message) {
+        this.message = message;
+    }
 }
